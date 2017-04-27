@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="GradientProgressRing.GradientProgressRing"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GradientProgressRing"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Viewbox Grid.Row="0" Grid.Column="0" >
+            <Canvas Name="CanvasPath"  Height="200" Width="200" >
+                <!-- Rotation animation -->
+                <Canvas.RenderTransform>
+                    <RotateTransform x:Name="AnimatedRotateTransform" Angle="0" CenterX="100" CenterY="100"/>
+                </Canvas.RenderTransform>
+                <Canvas.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="AnimatedRotateTransform"
+                                 Storyboard.TargetProperty="Angle" 
+                                To="360" Duration="0:0:2" RepeatBehavior="Forever" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Canvas.Triggers>
+            </Canvas>
+            
+        </Viewbox>
+        <Viewbox Grid.Row="0" Grid.Column="0" >
+            <Canvas Name="MaskLayer" Height="200" Width="200">
+                <Path Fill="White" >
+                    <Path.Data>
+                        <GeometryGroup>
+                            <EllipseGeometry x:Name="MaskEllipse" Center="100,100" RadiusX="40" RadiusY="40"></EllipseGeometry>
+                        </GeometryGroup>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+        </Viewbox>
+
+    </Grid>
+</UserControl>
